@@ -1,5 +1,5 @@
 "use client";
-
+import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
@@ -13,32 +13,43 @@ export default function Contact() {
   const [isSuccess, setIsSuccess] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    try {
-      const response = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formState),
-      });
+  e.preventDefault();
+  setIsSubmitting(true);
 
-      if (!response.ok) {
-        throw new Error('Failed to send message');
-      }
+  try {
+  console.log("SERVICE:", process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID);
+  console.log("TEMPLATE:", process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID);
+  console.log("PUBLIC:", process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY);
 
-      setIsSuccess(true);
-      setFormState({ name: "", email: "", message: "" });
-      setTimeout(() => setIsSuccess(false), 3000);
-    } catch (error) {
-      console.error('Error sending message:', error);
-      alert('Failed to send message. Please try again later.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  await emailjs.send(
+  "service_47xe024",
+  "template_0fn608j",
+  {
+    name: formState.name,
+    email: formState.email,
+    message: formState.message,
+  },
+  "TGTxJQC5Sm-PEcQcc"
+);
+
+    setIsSuccess(true);
+    setFormState({
+      name: "",
+      email: "",
+      message: "",
+    });
+
+    setTimeout(() => {
+      setIsSuccess(false);
+    }, 3000);
+  } catch (error) {
+    console.error("EmailJS Error:", error);
+    alert("Failed to send message. Please try again.");
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
 
   return (
     <section className="relative z-20 bg-transparent py-32 px-4 md:px-12 overflow-hidden" id="contact">
@@ -84,17 +95,34 @@ export default function Contact() {
               </a>
               
               <div className="flex items-center gap-4">
-                 <SocialLink href="https://github.com/Sreekar-30" icon={<GithubIcon />} label="GitHub" />
-              </div>
+  <SocialLink
+    href="https://github.com/Sreekar-30"
+    icon={<GithubIcon />}
+    label="GitHub"
+  />
+
+  <SocialLink
+    href="https://www.linkedin.com/in/sreekarboorle"
+    icon={<LinkedinIcon />}
+    label="LinkedIn"
+  />
+</div>
             </div>
 
-            <a 
-              href="mailto:bsreekar30@gmail.com?subject=Resume Request" 
-              className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black rounded-full font-bold hover:bg-gray-200 transition-colors transform hover:-translate-y-1"
-            >
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-              Download Resume
-            </a>
+            <a
+  href="/resume/Sreekar_Boorle_Resume.pdf"
+  target="_blank"
+  rel="noopener noreferrer"
+  download
+  className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black rounded-full font-bold hover:bg-gray-200 transition-colors transform hover:-translate-y-1"
+>
+  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+    <polyline points="7 10 12 15 17 10"/>
+    <line x1="12" x2="12" y1="15" y2="3"/>
+  </svg>
+  Download Resume
+</a>
           </motion.div>
 
           {/* Right Column: Form */}
@@ -108,9 +136,10 @@ export default function Contact() {
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-400 mb-2">Name</label>
                 <input
-                  type="text"
-                  id="name"
-                  value={formState.name}
+  type="text"
+  id="name"
+  name="name"
+  value={formState.name}
                   onChange={(e) => setFormState({ ...formState, name: e.target.value })}
                   className="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-hidden focus:border-blue-500 transition-colors"
                   placeholder="John Doe"
@@ -121,9 +150,10 @@ export default function Contact() {
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-400 mb-2">Email</label>
                 <input
-                  type="email"
-                  id="email"
-                  value={formState.email}
+  type="email"
+  id="email"
+  name="email"
+  value={formState.email}
                   onChange={(e) => setFormState({ ...formState, email: e.target.value })}
                   className="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-hidden focus:border-blue-500 transition-colors"
                   placeholder="john@example.com"
@@ -134,8 +164,9 @@ export default function Contact() {
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-400 mb-2">Message</label>
                 <textarea
-                  id="message"
-                  value={formState.message}
+  id="message"
+  name="message"
+  value={formState.message}
                   onChange={(e) => setFormState({ ...formState, message: e.target.value })}
                   rows={4}
                   className="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-hidden focus:border-blue-500 transition-colors resize-none"
@@ -190,4 +221,20 @@ function SocialLink({ href, icon, label }: { href: string; icon: React.ReactNode
 // Icons
 const GithubIcon = () => (
   <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+);
+const LinkedinIcon = () => (
+  <svg
+    viewBox="0 0 24 24"
+    width="20"
+    height="20"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z" />
+    <rect x="2" y="9" width="4" height="12" />
+    <circle cx="4" cy="4" r="2" />
+  </svg>
 );

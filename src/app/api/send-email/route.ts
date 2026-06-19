@@ -1,12 +1,15 @@
-import { NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
+import { NextResponse } from "next/server";
+import nodemailer from "nodemailer";
 
 export async function POST(req: Request) {
   try {
     const { name, email, message } = await req.json();
 
+    console.log("EMAIL_USER:", process.env.EMAIL_USER);
+    console.log("EMAIL_PASS exists:", !!process.env.EMAIL_PASS);
+
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      service: "gmail",
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
@@ -19,28 +22,39 @@ export async function POST(req: Request) {
       replyTo: email,
       subject: `New Message from Portfolio: ${name}`,
       html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
-          <h2 style="color: #333; text-align: center;">New Portfolio Message</h2>
-          <div style="background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
-            <p><strong>Name:</strong> ${name}</p>
-            <p><strong>Email:</strong> ${email}</p>
-          </div>
-          <div style="background-color: #fff; padding: 15px; border: 1px solid #eee; border-radius: 5px;">
-            <p><strong>Message:</strong></p>
-            <p style="white-space: pre-wrap; color: #555;">${message}</p>
-          </div>
-          <p style="font-size: 12px; color: #888; text-align: center; margin-top: 30px;">Sent from your portfolio website</p>
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+          <h2>New Portfolio Message</h2>
+
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+
+          <hr />
+
+          <p><strong>Message:</strong></p>
+          <p>${message}</p>
         </div>
       `,
     };
 
-    await transporter.sendMail(mailOptions);
+    const info = await transporter.sendMail(mailOptions);
 
-    return NextResponse.json({ message: 'Email sent successfully' }, { status: 200 });
-  } catch (error) {
-    console.error('Failed to send email:', error);
+    console.log("Email sent:", info.messageId);
+
     return NextResponse.json(
-      { error: 'Failed to send email' },
+      {
+        success: true,
+        message: "Email sent successfully",
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("FULL ERROR:", error);
+
+    return NextResponse.json(
+      {
+        success: false,
+        error: error instanceof Error ? error.message : "Failed to send email",
+      },
       { status: 500 }
     );
   }
