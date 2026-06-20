@@ -3,10 +3,44 @@
 import { motion } from "framer-motion";
 
 const skills = [
-  { category: "Languages", items: ["Python", "JavaScript", "Java", "C"] },
-  { category: "Backend", items: ["FastAPI", "Flask", "Spring Boot", "REST APIs", "JWT Auth", "API Integration"] },
-  { category: "DB & Tools", items: ["MySQL", "Git/GitHub", "Docker", "Postman", "CI/CD", "Render", "Vercel"] },
-  { category: "Concepts", items: ["OOP", "Clean Code", "Agile", "API Docs", "Code Reviews", "Testing"] },
+  {
+    category: "Languages",
+    items: ["Python", "Java", "JavaScript", "TypeScript"]
+  },
+  {
+    category: "Backend",
+    items: [
+      "FastAPI",
+      "Flask",
+      "REST APIs",
+      "JWT Auth",
+      "SQLAlchemy",
+      "PostgreSQL",
+      "MySQL"
+    ]
+  },
+  {
+    category: "Frontend",
+    items: [
+      "React",
+      "Next.js",
+      "Tailwind CSS",
+      "Framer Motion"
+    ]
+  },
+  {
+    category: "Tools & Engineering",
+    items: [
+      "Git/GitHub",
+      "Docker",
+      "Postman",
+      "Vercel",
+      "Render",
+      "OOP",
+      "Clean Architecture",
+      "Agile"
+    ]
+  }
 ];
 
 export default function Skills() {

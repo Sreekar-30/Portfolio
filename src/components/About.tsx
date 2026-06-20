@@ -25,34 +25,35 @@ export default function About() {
               About Me
             </span>
             <h2 className="text-5xl md:text-7xl font-bold text-white mb-8 tracking-tight leading-tight">
-              Designing <br />
+              Building <br />
               <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-purple-400">
-                Robust Backends
+                Scalable Backend Systems
               </span>
             </h2>
             <p className="text-gray-400 text-lg leading-relaxed mb-8">
-              A results-driven engineer specializing in building high-performance APIs, automated data pipelines, and clean, modular architectures that power seamless client experiences.
+              Building scalable APIs, automation systems, and backend architectures that power reliable digital experiences.
             </p>
             
             {/* Quick Metrics */}
             <div className="grid grid-cols-2 gap-6 border-t border-white/10 pt-8">
-              <div>
-                <span className="block text-4xl font-bold text-white font-mono mb-1">
-                  100%
-                </span>
-                <span className="text-xs text-gray-500 uppercase tracking-wider">
-                  Clean & OOP Code
-                </span>
-              </div>
-              <div>
-                <span className="block text-4xl font-bold text-white font-mono mb-1">
-                  40%
-                </span>
-                <span className="text-xs text-gray-500 uppercase tracking-wider">
-                  Security Optimized
-                </span>
-              </div>
-            </div>
+  <div>
+    <span className="block text-4xl font-bold text-white font-mono mb-1">
+      1+
+    </span>
+    <span className="text-xs text-gray-500 uppercase tracking-wider">
+      Years Experience
+    </span>
+  </div>
+
+  <div>
+    <span className="block text-4xl font-bold text-white font-mono mb-1">
+      Python
+    </span>
+    <span className="text-xs text-gray-500 uppercase tracking-wider">
+      Backend Engineer
+    </span>
+  </div>
+</div>
           </motion.div>
 
           {/* Profile Card / Description */}
@@ -67,20 +68,54 @@ export default function About() {
             <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-blue-500/10 rounded-full blur-[80px] pointer-events-none group-hover:bg-blue-500/15 transition-all" />
 
             <div className="relative z-10">
-              <h3 className="text-2xl font-bold text-white mb-6">
-                Professional Profile
-              </h3>
-              <p className="text-gray-300 leading-relaxed mb-6 text-base md:text-lg">
-                I am a Python Software Engineer with professional experience developing web applications, automation solutions, and scalable backend systems using Python, FastAPI, JavaScript, and MySQL.
-              </p>
-              <p className="text-gray-300 leading-relaxed mb-6 text-base md:text-lg">
-                Skilled in designing REST APIs, implementing OOP-based architectures, optimizing application performance, and writing clean, maintainable code.
-              </p>
-              <p className="text-gray-300 leading-relaxed text-base md:text-lg">
-                I am highly experienced in debugging, API integration, Git-based workflows, and Agile development, with a proven ability to deliver reliable software solutions in collaborative environments.
-              </p>
-            </div>
-          </motion.div>
+  <h3 className="text-2xl font-bold text-white mb-6">
+    Professional Profile
+  </h3>
+
+  <p className="text-gray-300 leading-relaxed text-base md:text-lg">
+    Python Software Engineer with experience building scalable REST APIs, automation solutions, and backend systems. Skilled in FastAPI, PostgreSQL, Docker, and modern web technologies, with a focus on performance, maintainability, and clean architecture.
+  </p>
+
+  <div className="grid grid-cols-2 gap-6 mt-10 pt-8 border-t border-white/10">
+    <div>
+      <span className="block text-4xl font-bold text-white font-mono mb-1">
+        1+
+      </span>
+      <span className="text-xs text-gray-500 uppercase tracking-wider">
+        Years Experience
+      </span>
+    </div>
+
+    <div>
+      <span className="block text-4xl font-bold text-white font-mono mb-1">
+        FastAPI
+      </span>
+      <span className="text-xs text-gray-500 uppercase tracking-wider">
+        REST APIs
+      </span>
+    </div>
+
+    <div>
+      <span className="block text-4xl font-bold text-white font-mono mb-1">
+        REST APIs Development
+
+
+      </span>
+      <span className="text-xs text-gray-500 uppercase tracking-wider">
+        Backend Development
+      </span>
+    </div>
+
+    <div>
+      <span className="block text-4xl font-bold text-white font-mono mb-1">
+        PostgreSQL
+      </span>
+      <span className="text-xs text-gray-500 uppercase tracking-wider">
+        Database Design
+      </span>
+    </div>
+  </div>
+</div>          </motion.div>
         </div>
       </div>
     </section>
